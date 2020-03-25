@@ -56,7 +56,7 @@
             tableNew.hidden =true;
         }
 
-        function convert(){
+        function upper(){
             var tableNew = document.getElementById("upper");
             var tableOriginal = document.getElementById("mytable");
             var button = document.getElementById("target");
@@ -86,7 +86,7 @@
             }
                 console.log(str);
                 
-                fetch("http://localhost:3000/convert/", { 
+                fetch("http://localhost:3000/upper/", { 
                     
                     // Adding method type 
                     method: "POST", 
@@ -233,7 +233,7 @@
         <center>
             <button id = "newRow" OnClick = "createFunction()">New Row</button>   
             <button id="showOriginal" hidden OnClick="showOriginal()" > Show Original</button>
-            <button id="target"  OnClick="convert()"> Show Upper</button>
+            <button id="target"  OnClick="upper()"> Show Upper</button>
             <button id ="showLower" onclick="showLower()" > Show Lower</button>
             <br><br><br>
             <table id="mytable">

@@ -12,11 +12,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
 
 //Require the Router we defined in movies.js
-var convert = require('./convert.js');
+var upper = require('./upper.js');
 var lower = require('./lower.js');
 
 //Use the Router on the sub route /movies
-app.use('/convert', convert);
+app.use('/upper', upper);
 app.use('/lower', lower);
 
 app.listen(3000);
