@@ -91,7 +91,7 @@
                     x = x-1;
                     alert('Your table has ' + x + ' rows.');
 
-                    for (var i=0;i<15;i++){
+                    for (var i=0;i<x;i++){
                         
                         html="<tr>"
                         html+="<td>"+(parseInt(i)+parseInt(1))+"</td>";
@@ -116,8 +116,8 @@
                 var i = document.getElementById("mytable").rows.length;
                 i = i-1;
                 cell.innerHTML = i;
-                cell1.innerHTML = "<input type='text' id='name'+i>";
-                cell2.innerHTML = "<input type='text' id='addr'+i>";
+                cell1.innerHTML = `<input type="text" id="name${i}">`;
+                cell2.innerHTML = `<input type="text" id="addr${i}">`;
             }
             </script>
     </head>
