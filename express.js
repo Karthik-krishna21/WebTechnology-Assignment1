@@ -13,8 +13,10 @@ app.use(upload.array());
 
 //Require the Router we defined in movies.js
 var convert = require('./convert.js');
+var lower = require('./lower.js');
 
 //Use the Router on the sub route /movies
 app.use('/convert', convert);
+app.use('/lower', lower);
 
 app.listen(3000);

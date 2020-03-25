@@ -12,11 +12,13 @@
                 padding: 5px;
                 width: 160px;
             }
+
             th {
                 background-color: rgb(85, 85, 202);
                 font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                 
             }
+
             button {
                 background-color: rgb(5, 9, 255);
                 color: rgb(221, 224, 26);
@@ -39,29 +41,34 @@
         </style>
 
         <script>
-        function showLower(){
+        function showOriginal(){
             var button = document.getElementById("target");
-            var button2 = document.getElementById("showlower");
+            var button2 = document.getElementById("showOriginal");
             var button3 = document.getElementById("newRow");
-            var tableup = document.getElementById("upper");
-            var tablelow = document.getElementById("mytable");
+            var button4 = document.getElementById("showLower")
+            var tableNew = document.getElementById("upper");
+            var tableOriginal = document.getElementById("mytable");
             button.hidden=false;
             button2.hidden=true;
-            tableup.hidden =true;
-            tablelow.hidden=false;
             button3.hidden = false;
+            button4.hidden = false;
+            tableOriginal.hidden=false;
+            tableNew.hidden =true;
         }
+
         function convert(){
-            var tableup = document.getElementById("upper");
-            var tablelow = document.getElementById("mytable");
+            var tableNew = document.getElementById("upper");
+            var tableOriginal = document.getElementById("mytable");
             var button = document.getElementById("target");
-            var button2 = document.getElementById("showlower");
+            var button2 = document.getElementById("showOriginal");
             var button3 = document.getElementById("newRow");
-            tablelow.hidden=true;
-            tableup.hidden =false;
+            var button4 = document.getElementById("showLower");
+            tableOriginal.hidden=true;
+            tableNew.hidden =false;
             button.hidden=true;
             button2.hidden=false;
             button3.hidden = true;
+            button4.hidden = false;
             
             str ={
                 names:[],
@@ -125,6 +132,82 @@
                 
             }
             
+            function showLower(){
+            var tableNew = document.getElementById("upper");
+            var tableOriginal = document.getElementById("mytable");
+            var button = document.getElementById("target");
+            var button2 = document.getElementById("showOriginal");
+            var button3 = document.getElementById("newRow");
+            var button4 = document.getElementById("showLower");
+            tableOriginal.hidden=true;
+            tableNew.hidden =false;
+            button.hidden=false;
+            button2.hidden=false;
+            button3.hidden = true;
+            button4.hidden = true;
+            
+            str ={
+                names:[],
+                address:[]
+            }
+
+            var n = document.getElementById("mytable").rows.length;
+            n = n-1;
+            // alert('Your table has ' + n + ' rows.');
+
+            for(var i=1;i<=n;i++)
+            {
+                str.names.push(document.getElementById("name"+i).value);
+                str.address.push(document.getElementById("addr"+i).value);
+            }
+                console.log(str);
+                
+                fetch("http://localhost:3000/lower/", { 
+                    
+                    // Adding method type 
+                    method: "POST", 
+                    
+                    // Adding body or contents to send 
+                    body: JSON.stringify({ 
+                        json:str
+                    }), 
+                    
+                    // Adding headers to the request 
+                    headers: { 
+                        "Content-type": "application/json; charset=UTF-8"
+                    } 
+                }) 
+                .then(response => response.json()) 
+  
+                // Displaying results to console 
+                .then((json)=>{
+                    var names = json.names;
+                    var address = json.address;
+                    var html ="";
+                    $('#upper').html('<table />');
+                    html+="<tr><th>Serial Number</th><th>Name</th><th>Address</th></tr>"
+                    $('#upper table').append(html);
+
+                    var x = document.getElementById("mytable").rows.length;
+                    x = x-1;
+                    // alert('Your table has ' + x + ' rows.');
+
+                    for (var i=0;i<x;i++){
+                        
+                        html="<tr>"
+                        html+="<td>"+(parseInt(i)+parseInt(1))+"</td>";
+                        html+="<td>"+names[i]+"</td>";
+                        html+="<td>"+address[i]+"</td>";
+
+                        html+="</tr>";
+                        $('#upper table').append(html);
+                        
+                    }
+                    
+                }); 
+                
+            }
+            
             function createFunction () {
                 var table = document.getElementById ("mytable");
                 var row = table.insertRow();
@@ -139,6 +222,9 @@
             }
             </script>
     </head>
+
+
+
     <body>
         <div id ="Top">
             <h1>Student Database</h1>
@@ -146,8 +232,9 @@
         <br><br>
         <center>
             <button id = "newRow" OnClick = "createFunction()">New Row</button>   
+            <button id="showOriginal" hidden OnClick="showOriginal()" > Show Original</button>
             <button id="target"  OnClick="convert()"> Show Upper</button>
-            <button id="showlower" hidden OnClick="showLower()" > Show Original</button
+            <button id ="showLower" onclick="showLower()" > Show Lower</button>
             <br><br><br>
             <table id="mytable">
                 <tr>
