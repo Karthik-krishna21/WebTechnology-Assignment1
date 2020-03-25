@@ -1,6 +1,6 @@
-##WebTechnology-Assignment1 
+#WebTechnology-Assignment1
 
-#Instructions to run
+##Instructions to run
 
     1. Install Node.js from https://nodejs.org/en/download/
     2. Run command 'npm install'
