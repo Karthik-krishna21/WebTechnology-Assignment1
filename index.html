@@ -22,22 +22,29 @@
             tableup.hidden =true;
             var tablelow = document.getElementById("mytable");
             tablelow.hidden=false;
+            var button3 = document.getElementById("newRow");
+            button3.hidden = false;
         }
         function convert(){
             var tableup = document.getElementById("upper");
             tableup.hidden =false;
             var button = document.getElementById("target");
+            button.hidden=true;
             var button2 = document.getElementById("showlower");
+            button2.hidden=false;
             var tablelow = document.getElementById("mytable");
             tablelow.hidden=true;
-            button2.hidden=false
-            button.hidden=true;
+            var button3 = document.getElementById("newRow");
+            button3.hidden = true;
             
             str ={
                 names:[],
                 address:[]
             }
-            for(var i=1;i<=10;i++)
+            var n = document.getElementById("mytable").rows.length;
+            n = n-1;
+            
+            for(var i=1;i<=n;i++)
             {
                 str.names.push(document.getElementById("name"+i).value);
                 str.address.push(document.getElementById("addr"+i).value);
@@ -69,7 +76,10 @@
                     $('#upper').html('<table />');
                     html+="<tr><th>Serial</th><th>Name</th><th>Address</th></tr>"
                     $('#upper table').append(html);
-                    for (var i=0;i<10;i++){
+                    var x = document.getElementById("mytable").rows.length;
+                    x = x-1;
+                    alert('Your table has ' + x + ' rows.');
+                    for (var i=0;i<x;i++){
                         
                         html="<tr>"
                         html+="<td>"+(parseInt(i)+parseInt(1))+"</td>";
@@ -83,6 +93,19 @@
                     
                 }); 
                 
+        }
+
+        function createFunction () {
+            var table = document.getElementById ("mytable");
+            var row = table.insertRow();
+            var cell = row.insertCell();
+            var cell1 = row.insertCell();
+            var cell2 = row.insertCell();
+            var i = document.getElementById("mytable").rows.length;
+            i = i-1;
+            cell.innerHTML = i;
+            cell1.innerHTML = "<input type='text' id='name'+i>";
+            cell2.innerHTML = "<input type='text' id='addr'+i>";
         }
         </script>
     </head>
@@ -157,7 +180,10 @@
         </tr>
     </table>
     <div id="upper">
-    </div>    
+    </div> 
+        <br>
+        <button id = "newRow" OnClick = "createFunction()">New Row</button>   
+    
         <br>
         <button id="target"  OnClick="convert()"> Show Upper</button>
         <button id="showlower" hidden OnClick="showLower()" > Show lower</button
